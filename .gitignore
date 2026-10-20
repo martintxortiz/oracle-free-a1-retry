@@ -1,0 +1,10 @@
+*.pem
+*.key
+oci_api_key*
+martin-oracle-key
+!ssh_key.pub
+result.json
+*.json
+.oci/
+venv/
+__pycache__/
