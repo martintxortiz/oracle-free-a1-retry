@@ -9,7 +9,7 @@ import os, sys, time, datetime
 import oci
 
 def log(m):
-    print(datetime.datetime.utcnow().strftime("%H:%M:%S"), m, flush=True)
+    print(datetime.datetime.now(datetime.timezone.utc).strftime("%H:%M:%S"), m, flush=True)
 
 def env(name):
     v = os.environ.get(name, "").strip()
