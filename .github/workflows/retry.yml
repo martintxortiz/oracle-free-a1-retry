@@ -53,3 +53,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow disable retry.yml --repo "$GITHUB_REPOSITORY" || echo "could not disable workflow"
+      - name: Chain next run (scheduled triggers are unreliable)
+        if: success() && steps.grab.outputs.done != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run retry.yml --repo "$GITHUB_REPOSITORY" -f max_minutes=50 || echo "could not re-dispatch"
