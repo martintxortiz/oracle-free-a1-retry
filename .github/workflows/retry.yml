@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
+    inputs:
+      max_minutes:
+        description: "Minutes to keep retrying in this run"
+        default: "50"
 
 concurrency:
   group: oracle-a1-retry
@@ -35,7 +39,7 @@ jobs:
           OCI_SUBNET_OCID: ${{ secrets.OCI_SUBNET_OCID }}
           OCI_IMAGE_OCID: ${{ secrets.OCI_IMAGE_OCID }}
           OCI_AD: ${{ secrets.OCI_AD }}
-          MAX_MINUTES: "50"
+          MAX_MINUTES: ${{ inputs.max_minutes || '50' }}
           INTERVAL_SECONDS: "65"
         run: |
           set +e
